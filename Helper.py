@@ -2,9 +2,9 @@ import openpyxl
 import os
 
 class RunningDinnerHelper:
-    def __init__(self):
-        path: str = os.path.join(os.path.dirname(__file__), "RunningDinner.xlsx")
-        workbook = openpyxl.load_workbook(path)
+    def __init__(self, path):
+        self.path = path
+        workbook = openpyxl.load_workbook(self.path)
         self.sheet = workbook.active
         self.max_row_length: int = 0
         self.row_vorspeise: int = self.find_cell_in_column(self.sheet, 1, "Vorspeise")
@@ -14,9 +14,7 @@ class RunningDinnerHelper:
         self.find_max_row_length()
         self.teams = self.create_teams()
         self.find_row_with_team()
-        self.max_team_length = self.find_max_team_length()
-
-    
+        self.max_team_length = self.find_max_team_length()        
 
     def find_max_team_length(self):
         max_length: int = 0
